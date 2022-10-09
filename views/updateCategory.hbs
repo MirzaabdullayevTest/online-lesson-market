@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <form action="/categories/update" method="POST">
+            <div class="input-field col s6">
+                <input placeholder="Placeholder" id="name" type="text" class="validate" name="name" value="{{name}}">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s6">
+                <input id="image" type="text" class="validate" name="image" value="{{image}}">
+                <label for="image" >Image</label>
+            </div>
+
+            <div class="input-field col s6">
+                <input id="id" type="hidden" class="validate" name="id" value="{{id}}">
+            </div>
+
+            <div class="col s12" style="text-align: end;">
+                <button class="waves-effect waves-light btn" type="submit">Update category</button>
+            </div>
+        </form>
+    </div>
+</div>

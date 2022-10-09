@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        {{#each categories}}
+        <div class="col s6">
+            <div class="card" style="height: 580px;">
+                <div class="card-image">
+                    <img src={{image}}>
+                    <span class="card-title">{{name}}</span>
+                </div>
+                <div class="card-content">
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                    <a href="/categories/{{id}}">View</a>
+                    <a href="/categories/update/{{id}}" class="waves-effect waves-light btn">Update</a>
+                    <a href="/categories/remove/{{id}}" class="waves-effect waves-light btn"
+                        style="background-color: red;">Remove</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+        <div class="col s12" style="text-align: center;">
+            <a class="waves-effect waves-light btn" href="/categories/create">Create category</a>
+        </div>
+    </div>
+</div>
