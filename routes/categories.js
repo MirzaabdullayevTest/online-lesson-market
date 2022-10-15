@@ -1,6 +1,8 @@
 const express = require('express');
+const { Types } = require('mongoose');
 const router = express.Router();
-const Category = require('../model/category')
+const Category = require('../model/category');
+const Course = require('../model/course');
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
@@ -10,7 +12,6 @@ router.get('/', async function (req, res, next) {
     categories
   });
 });
-
 
 router.get('/create', function (req, res, next) {
   res.render('addCategory', {
@@ -44,17 +45,26 @@ router.get('/update/:id', async (req, res) => {
     title: 'update',
     name: category.name,
     image: category.image,
-    id: category.id
+    id: category.id,
   })
 })
 
 router.get('/:id', async (req, res) => {
   const category = await Category.findById(req.params.id)
+  const courses = await Course.aggregate([
+    {
+      $match: {
+        categoryId: Types.ObjectId(req.params.id)
+      }
+    }
+  ])
+  
   res.render('category', {
     title:  category.name,
     name: category.name,
     image: category.image,
-    id: category.id
+    id: category.id,
+    courses
   })
 })
 

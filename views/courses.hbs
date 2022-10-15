@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    {{#each courses}}
+      <div class="col s6">
+        <div class="card" style="height: 580px;">
+          <div class="card-image">
+            <img src={{image}} alt="" style="width: 100%;"/>
+            <span class="card-title">{{name}}</span>
+          </div>
+          <div class="card-content">
+            <p>{{price}}</p>
+          </div>
+          <div class="card-action">
+            <a href="/courses/{{id}}">View</a>
+            <a
+              href="/courses/update/{{id}}"
+              class="waves-effect waves-light btn"
+            >Update</a>
+            <a
+              href="/courses/remove/{{id}}"
+              class="waves-effect waves-light btn"
+              style="background-color: red;"
+            >Remove</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+  </div>
+   <div class="row">
+      <a
+        class="waves-effect add-btn waves-light btn"
+        href="/courses/course/create"
+      >Create Course</a>
+    </div>
+</div>

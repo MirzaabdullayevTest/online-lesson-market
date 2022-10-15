@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <form action="/courses/update" method="POST">
+      <div class="input-field col s6">
+        <input
+          placeholder="Placeholder"
+          id="name"
+          type="text"
+          class="validate"
+          name="name"
+          value="{{title}}"
+        />
+        <label for="name">Name</label>
+      </div>
+      <div class="input-field col s6">
+        <input
+          id="image"
+          type="text"
+          class="validate"
+          name="image"
+          value="{{image}}"
+        />
+        <label for="image">Image</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input
+          id="price"
+          type="number"
+          class="validate"
+          name="price"
+          value="{{price}}"
+        />
+        <label for="price">Price</label>
+      </div>
+
+      <div class="input-field col s6">
+        <select name="categoryId" class="browser-default">
+                    <option value="">Select Category</option>
+                  {{#each categories}}
+                        <option value="{{ _id }}">{{ name }}</option>
+                  {{/each}}
+        </select>
+      </div>
+
+      <div class="input-field col s6">
+        <input
+          id="id"
+          type="hidden"
+          class="validate"
+          name="id"
+          value="{{id}}"
+        />
+      </div>
+
+      <div class="col s12" style="text-align: end;">
+        <button class="waves-effect waves-light btn" type="submit">Update course</button>
+      </div>
+    </form>
+  </div>
+</div>

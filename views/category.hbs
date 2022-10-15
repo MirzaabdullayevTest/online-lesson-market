@@ -4,4 +4,19 @@
             <h1>{{name}}</h1>
         </div>
     </div>
+
+    <div class="row" style="gap: 10px 10px;">
+        {{#each courses}}
+        <div class="col s4" style="box-shadow: 0px 0px 10px #ccc; text-align: center;">
+            <h2>
+                {{name}}
+            </h2>
+
+            <img src="{{image}}" alt="" width="200" height="200">
+            <p>{{price}}$</p>
+
+            <a href="/buy" class="btn btn-primary">Buy course</a>
+        </div>
+        {{/each}}
+    </div>
 </div>
