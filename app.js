@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');
 const exhbs = require('express-handlebars')
+const session = require('express-session')
 
 require('dotenv').config()
 
@@ -10,6 +11,10 @@ const indexRouter = require('./routes/index');
 const categoriesRouter = require('./routes/categories');
 const coursesRouter = require('./routes/courses');
 const authRouter = require('./routes/auth');
+const errorRouter = require('./routes/404');
+
+
+const {auth} = require('./middleware/auth')
 
 const app = express();
 
@@ -36,10 +41,20 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: process.env.SECTER_KEY,
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.use('/error', errorRouter);
+app.use('/auth', authRouter);
+
+app.use(auth)
+
 app.use('/', indexRouter);
 app.use('/categories', categoriesRouter);
 app.use('/courses', coursesRouter);
-app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -7,19 +7,23 @@ const bcrypt = require('bcrypt')
 router.get('/login', async (req,res)=>{
     // const user = await User()
     res.render('login',{
-        title: 'Login'
+        title: 'Login',
+        layout: 'layout'
     })
 })
 
 router.get('/register', async (req,res)=>{
     // const user = await User()
     res.render('register',{
-        title: 'Register'
+        title: 'Register',
+        layout: 'layout'
     })
 })
 
 router.post('/login', async (req,res)=>{
     const {phone, password} = req.body
+
+    req.session.isAdmin = false
 
     const user = await User.findOne({phone})
 
@@ -33,11 +37,20 @@ router.post('/login', async (req,res)=>{
         return res.send('Password is not true')
     }
 
+    req.session.isAdmin = true
+    req.session.admin = user
+
     res.redirect('/')
 })
 
 router.post('/register', async(req, res)=>{
     const {name, phone, image, password} = req.body
+
+    const hasPhone = await User.findOne({phone})
+
+    if(hasPhone){
+       return res.send('This phone number is busy')
+    }
 
     const hash = await bcrypt.hash(password, 10)
 
@@ -45,6 +58,11 @@ router.post('/register', async(req, res)=>{
 
     await user.save()
 
+    res.redirect('/auth/login')
+})
+
+router.get('/logout', (req,res)=>{
+    req.session.isAdmin = false
     res.redirect('/auth/login')
 })
 

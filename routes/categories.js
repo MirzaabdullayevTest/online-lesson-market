@@ -9,7 +9,7 @@ router.get('/', async function (req, res, next) {
   const categories = await Category.find()
   res.render('categories', {
     title: 'Categories',
-    categories
+    categories,
   });
 });
 
