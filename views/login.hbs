@@ -1,5 +1,8 @@
 <div class="container">
     <div class="row">
+        {{#if error}}
+         <span style="display:block; text-align: center; font-size: 30px; background: red;">{{error}}</span>
+        {{/if}}
         <form action="/auth/login" method="POST" style="margin-top: 100px;">
             <div class="input-field col s6">
                 <input placeholder="Phone" id="phone" type="text" class="validate" name="phone">

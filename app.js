@@ -1,3 +1,4 @@
+const flash = require('connect-flash');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -12,7 +13,6 @@ const categoriesRouter = require('./routes/categories');
 const coursesRouter = require('./routes/courses');
 const authRouter = require('./routes/auth');
 const errorRouter = require('./routes/404');
-
 
 const {auth} = require('./middleware/auth')
 
@@ -47,11 +47,12 @@ app.use(session({
   saveUninitialized: false
 }))
 
+app.use(flash());
+
 app.use('/error', errorRouter);
 app.use('/auth', authRouter);
 
 app.use(auth)
-
 app.use('/', indexRouter);
 app.use('/categories', categoriesRouter);
 app.use('/courses', coursesRouter);

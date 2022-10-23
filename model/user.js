@@ -12,7 +12,7 @@ const userSchema = new Schema({
                 courseId: Types.ObjectId
             }
         ],
-        price: Number
+        count: Number
     },
     password: {
         type: String,
@@ -22,7 +22,9 @@ const userSchema = new Schema({
         type: String,
         unique: true,
         required: true
-    }
-})
+    },
+    admin: Boolean
+})  
+
 
 module.exports = model('user', userSchema)

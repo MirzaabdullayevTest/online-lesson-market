@@ -1,9 +1,12 @@
 module.exports.auth = (req, res, next) => {
-    const admin = req.session.isAdmin
+    const isAdmin = req.session.isAdmin
   
-    if(!admin){
-      res.redirect('/auth/login')
+    if(!isAdmin){
+      return res.redirect('/auth/login')
     }
+
+    const admin = req.session.admin
+    res.locals.admin = admin
   
     next()
 }

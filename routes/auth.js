@@ -1,26 +1,24 @@
-const Auth = require('../model/user')
 const { Router } = require('express')
 const router = Router()
 const User = require('../model/user')
 const bcrypt = require('bcrypt')
 
-router.get('/login', async (req,res)=>{
-    // const user = await User()
+router.get('/login', async (req, res)=>{
     res.render('login',{
         title: 'Login',
-        layout: 'layout'
+        layout: 'layout',
+        error: req.flash('error')
     })
 })
 
-router.get('/register', async (req,res)=>{
-    // const user = await User()
-    res.render('register',{
+router.get('/register', async (req, res) => {
+    res.render('register', {
         title: 'Register',
         layout: 'layout'
     })
 })
 
-router.post('/login', async (req,res)=>{
+router.post('/login', async (req, res) => {
     const {phone, password} = req.body
 
     req.session.isAdmin = false
@@ -28,13 +26,15 @@ router.post('/login', async (req,res)=>{
     const user = await User.findOne({phone})
 
     if(!user){
-      return res.send('Phone number not found')
+        req.flash('error', 'tupoy nomer xato boshqattan ko`r. yoki reg qil')
+        return  res.redirect('/auth/login')
     }
 
     const compare = await bcrypt.compare(password, user.password)
 
     if(!compare){
-        return res.send('Password is not true')
+        req.flash('error', 'tupoy parol xato boshqattan ko`r. yoki reg qil')
+        return  res.redirect('/auth/login')
     }
 
     req.session.isAdmin = true
@@ -52,9 +52,9 @@ router.post('/register', async(req, res)=>{
        return res.send('This phone number is busy')
     }
 
-    const hash = await bcrypt.hash(password, 10)
+    const hash = await bcrypt.hash(password, 10) // as4d5as4d5a4sd5a4sd5as4d5
 
-    const user = new Auth({name, phone, image, password: hash})
+    const user = new User({name, phone, image, password: hash})
 
     await user.save()
 
